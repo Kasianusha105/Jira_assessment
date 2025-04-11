@@ -1,0 +1,117 @@
+<div class="board-container">
+  <h2>Jira Board</h2>
+
+  <!-- Add List button (can be reused to open modal if dynamic lists are needed) -->
+  <div class="add-list-container">
+    <button (click)="openAddListDialog()">ADD LIST</button>
+  </div>
+
+
+  <!-- Popup Dialog to Add Title Only -->
+  <div *ngIf="showAddListDialog" class="modal-overlay">
+    <form #listForm="ngForm" (ngSubmit)="addList()" class="modal-overlay">
+      <div class="modal">
+        <h3>Add New List</h3>
+
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          [(ngModel)]="newList.title"
+          required
+          minlength="3"
+          #listTitle="ngModel"
+        />
+        <div *ngIf="listTitle.invalid && listTitle.touched" class="error">
+          <small *ngIf="listTitle.errors?.['required']">Title is required.</small>
+          <small *ngIf="listTitle.errors?.['minlength']">Minimum 3 characters.</small>
+        </div>
+
+        <br />
+        <button type="submit" [disabled]="listForm.invalid">Add</button>
+        <button type="button" (click)="showAddListDialog = false">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <!-- Popup Dialog to Add Card (creates card only in 'Todo' list) -->
+  <div *ngIf="showAddCardDialog" class="modal-overlay">
+    <form #cardForm="ngForm" (ngSubmit)="addCard()" *ngIf="showAddCardDialog" class="modal-overlay">
+      <div class="modal">
+        <h3>Add Card</h3>
+
+        <label>Header:</label>
+        <input
+          type="text"
+          name="title"
+          [(ngModel)]="newCard.title"
+          required
+          minlength="3"
+          #title="ngModel"
+        />
+        <div *ngIf="title.invalid && title.touched" class="error">
+          <small *ngIf="title.errors?.['required']">Title is required.</small>
+          <small *ngIf="title.errors?.['minlength']">Minimum 3 characters.</small>
+        </div>
+
+        <label>Description:</label>
+        <input
+          type="text"
+          name="description"
+          [(ngModel)]="newCard.description"
+          required
+          minlength="5"
+          #description="ngModel"
+        />
+        <div *ngIf="description.invalid && description.touched" class="error">
+          <small *ngIf="description.errors?.['required']">Description is required.</small>
+          <small *ngIf="description.errors?.['minlength']">Minimum 5 characters.</small>
+        </div>
+        <br />
+        <button type="submit" [disabled]="cardForm.invalid">Add</button>
+        <button type="button" (click)="showAddCardDialog = false">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+
+  <!-- Board Columns -->
+  <div class="board" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
+    <div
+      class="list"
+      *ngFor="let list of lists; let i = index"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event, i)"
+    >
+      <div class="list-header">
+        {{ list.title }}
+        <button (click)="clearList(i)">X</button>
+      </div>
+
+
+      <div class="card"
+      *ngFor="let card of list.cards; let j = index"
+      draggable="true"
+      (dragstart)="onDragStart($event, card, i)">
+
+   <div class="card-header">
+     {{ card.title }}
+     <button (click)="deleteCard(i, j)">X</button>
+   </div>
+   <div>{{ card.description }}</div>
+   <div class="meta">{{ card.createdAt | date:'short' }}</div>
+   <div class="share-section">
+    <button class="share-btn">
+      share
+      <i class="fa-solid fa-share-nodes" style="color: black; margin-right: 5px;"></i>
+    </button>
+  </div>
+ </div>
+
+      <!-- "+" button at bottom of list (you can reuse for dynamic list-wise add later) -->
+      <button class="add-card-btn" (click)="openAddCardDialog(i)">+</button>
+    </div>
+  </div>
+</div>
