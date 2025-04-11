@@ -1,27 +1,47 @@
-# JiraProject
+📂 How to Run the Project Locally
+Follow the steps below to set up and run the Angular application on your machine:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+1. 📥 Clone the Repository / Extract Zip
+If using Git:
 
-## Development server
+bash
+Copy
+Edit
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+If using the zip:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Download and extract the file [YourName]_solution.zip
 
-## Code scaffolding
+Navigate into the extracted folder
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. 📦 Install Dependencies
+Ensure Node.js and Angular CLI are installed.
+Then, install the project dependencies:
 
-## Build
+bash
+Copy
+Edit
+npm install
+3. ▶️ Run the Development Server
+Start the Angular development server:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+bash
+Copy
+Edit
+ng serve
+By default, the app will run at:
+🌐 http://localhost:4200
 
-## Running unit tests
+4. 🏗️ Build the Project (Optional)
+To build the project for production:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+bash
+Copy
+Edit
+ng build --prod
+ℹ️ Additional Notes
+This project does not require any backend/server configuration.
 
-## Running end-to-end tests
+If there are any API keys or environment files required, please refer to the .env.example or environment.ts files.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
